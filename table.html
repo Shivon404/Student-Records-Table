@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Records</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+      font-size: 15px; 
+    }
+
+    th {
+      background-color: #d6d6d6;
+    }
+
+    button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    .del{
+      padding: 5px 10px;
+      background-color: #b33939;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    @media only screen and (max-width: 600px) {
+      table {
+        width: 100%;
+      }
+
+      th, td {
+        padding: 5px;
+        font-size: 20px; 
+      }
+
+      button {
+        font-size: 12px;
+        padding: 3px 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Student Records</h1>
+  <table id="myTable">
+    <tr>
+      <th>ID number</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Course</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </table>
+  <button onclick="addRow()">Add Row</button>
+  <script>
+    var tableRows = 1;
+
+    function editRow(button) {
+      var row = button.parentNode.parentNode; 
+      var cells = row.cells;
+
+      for (var i = 0; i < cells.length - 2; i++) { 
+        cells[i].contentEditable = true;
+      }
+
+      button.innerHTML = "Update"; 
+      button.onclick = function() { saveRow(button); }; 
+    }
+
+    function saveRow(button) {
+      var row = button.parentNode.parentNode; 
+      var cells = row.cells;
+
+      for (var i = 0; i < cells.length - 2; i++) { 
+        cells[i].contentEditable = false;
+      }
+
+      button.innerHTML = "Edit"; 
+      button.onclick = function() { editRow(button); }; 
+    }
+
+    function deleteRow(button) {
+      var row = button.parentNode.parentNode; 
+      row.remove(); 
+    }
+
+    function addRow() {
+      var table = document.getElementById("myTable");
+      var newRow = '<tr>';
+      newRow += '<td contenteditable="true">New Data 1</td>';
+      newRow += '<td contenteditable="true">New Data 2</td>';
+      newRow += '<td contenteditable="true">New Data 3</td>';
+      newRow += '<td contenteditable="true">New Data 4</td>';
+      newRow += '<td><button onclick="editRow(this)">Edit</button></td>';
+      newRow += '<td><button class="del" onclick="deleteRow(this)">Delete</button></td>';
+      newRow += '</tr>';
+      table.innerHTML += newRow;
+    }
+  </script>
+</body>
+</html>
